@@ -1,0 +1,80 @@
+.artist-hero {
+    background: linear-gradient(transparent, rgba(18, 18, 18, 1)), rgba(255, 255, 255, 0.05);
+    padding: 4rem 2rem 2rem 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+}
+
+.artist-img {
+    width: 232px;
+    height: 232px;
+    border-radius: 50%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    object-fit: cover;
+}
+
+.artist-info h3 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: var(--spotify-white);
+    line-height: 1;
+}
+
+.track-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.table {
+    background: transparent !important;
+    border-collapse: separate;
+    border-spacing: 0 4px;
+}
+
+.table tr td {
+    border: none !important;
+    background: rgba(255, 255, 255, 0.03);
+    transition: var(--transition-smooth);
+}
+
+.table tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.table tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.table tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.player-container {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+@media (max-width: 992px) {
+    .artist-hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .artist-info h3 {
+        font-size: 3rem;
+    }
+
+    .artist-img {
+        width: 200px;
+        height: 200px;
+    }
+}

@@ -1,77 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  SpotifyAlbum,
+  SpotifyArtist,
+  SpotifyTrack,
+  NewReleasesResponse,
+  ArtistsSearchResponse,
+  TopTracksResponse
+} from '../models/spotify.models';
 
 @Injectable({
-  providedIn: 'root' // (provideIn) Decorador - Forma automatica de importar servicios - Sin agregar la importacion en app.module
+  providedIn: 'root'
 })
 export class SpotifyService {
 
-  constructor( private http: HttpClient) { 
-    console.log ('spotify service listo')
+  constructor(private http: HttpClient) { }
+
+  private getQuery<T>(query: string): Observable<T> {
+    const url = `https://api.spotify.com/v1/${query}`;
+    return this.http.get<T>(url);
   }
 
-  getQuery ( query: string) {
-    const url = `https://api.spotify.com/v1/${ query }`;
-    
-
-    /* const headers = new HttpHeaders({
-      'Authorization': 
-      'Bearer BQDSLV41_lCa0xLRGqSAIQh8b3BgCp7rOyX7uTBtH2Cezf0WbcOvOn7pF5cfcA0ufcQ1DJApVIm-iWdxDac'
-    }); */ // Antes se reseteaba token desde postan cada hora
-
-
-    //return this.http.get(url, {headers}); // Antes se reseteaba token desde postan cada hora
-    return this.http.get(url);
+  getNewReleases(): Observable<SpotifyAlbum[]> {
+    return this.getQuery<NewReleasesResponse>('browse/new-releases')
+      .pipe(map((data: NewReleasesResponse) => data.albums.items));
   }
 
-  
-
-  getNewReleases() {
-
-   
-    return this.getQuery('browse/new-releases')    //Ejemplo getQuery para resumir codigo
- 
-     .pipe(map ( (data: any) => {
-
-      return data['albums'].items;  
-
-    })); 
-     
+  getArtistas(termino: string): Observable<SpotifyArtist[]> {
+    return this.getQuery<ArtistsSearchResponse>(`search?q=${termino}&type=artist&limit=15`)
+      .pipe(map((data: ArtistsSearchResponse) => data.artists.items));
   }
 
-  getArtistas( termino: string) {
-
-   return this.getQuery(`search?q=${termino}&type=artist&limit=15`)    //Ejemplo getQuery para resumir codigo
- 
-  .pipe(map ( (data: any) => {
-
-   return data['artists'].items;  
-
-  })); 
-
+  getArtista(id: string): Observable<SpotifyArtist> {
+    return this.getQuery<SpotifyArtist>(`artists/${id}`);
   }
 
-  getArtista( id: string) {
-
-    return this.getQuery(`artists/${ id }`)    //Ejemplo getQuery para resumir codigo
-  
-   //.pipe(map ( (data: any) => {
- 
-    //return data['artists'].items;  
- 
-   //})); 
- 
-   }
-
-   getTopTracks( id: string) {
-
-    return this.getQuery(`artists/${ id }/top-tracks?country=us`)
-    .pipe (map( (data: any) => data['tracks'] ));
-  } 
+  getTopTracks(id: string): Observable<SpotifyTrack[]> {
+    return this.getQuery<TopTracksResponse>(`artists/${id}/top-tracks?country=us`)
+      .pipe(map((data: TopTracksResponse) => data.tracks));
+  }
 }
-   
-  
-
-

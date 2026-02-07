@@ -1,0 +1,43 @@
+.glass-nav {
+    background: rgba(24, 24, 24, 0.7) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 1.5rem;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    color: var(--spotify-white) !important;
+}
+
+.nav-link {
+    color: #b3b3b3 !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+    color: var(--spotify-white) !important;
+}
+
+.active .nav-link {
+    color: var(--spotify-green) !important;
+    font-weight: 600;
+}
+
+.tracking-tight {
+    letter-spacing: -0.03em;
+}
+
+.focus-none:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .glass-nav {
+        border-radius: 20px !important;
+        margin: 1rem !important;
+    }
+}

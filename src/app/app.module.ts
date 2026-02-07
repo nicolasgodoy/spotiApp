@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -33,29 +33,21 @@ import { AuthInterceptor } from './services/AuthInterceptor';
 
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SearchComponent,
-    ArtistaComponent,
-    NavbarComponent,
-    NoimagePipe,
-    DomseguroPipe,
-    TarjetasComponent,
-    LoadingComponent,
-    
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot( ROUTES, {useHash: true} )
-  
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        SearchComponent,
+        ArtistaComponent,
+        NavbarComponent,
+        NoimagePipe,
+        DomseguroPipe,
+        TarjetasComponent,
+        LoadingComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        RouterModule.forRoot(ROUTES, { useHash: true })], providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
 

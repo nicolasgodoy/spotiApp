@@ -1,19 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { SpotifyImage } from '../models/spotify.models';
 
 @Pipe({
   name: 'noimage'
 })
 export class NoimagePipe implements PipeTransform {
 
-  transform(images: any[] ): string {
+  transform(images: SpotifyImage[] | null | undefined): string {
 
     if (!images) {
       return '/assets/img/noimage.png';
     }
 
-    if (images.length > 0 ) {
+    if (images.length > 0) {
       return images[0].url;
-    }else{
+    } else {
       return '/assets/img/noimage.png';
     }
   }

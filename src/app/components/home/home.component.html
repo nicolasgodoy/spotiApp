@@ -1,4 +1,11 @@
+<div class="row m-4 animated fadeIn">
+    <div class="col">
+        <h2 class="fw-bold mb-4">Nuevos Lanzamientos</h2>
+    </div>
+</div>
 
-<app-loading *ngIf=" loading "></app-loading>
-
+@if (loading) {
+<app-loading></app-loading>
+} @else {
 <app-tarjetas [items]="nuevasCanciones"></app-tarjetas>
+}

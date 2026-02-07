@@ -1,5 +1,6 @@
-import { Component, Input} from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { SpotifyAlbum, SpotifyArtist } from '../../models/spotify.models';
 
 @Component({
   selector: 'app-tarjetas',
@@ -8,21 +9,20 @@ import { Router } from '@angular/router';
 })
 export class TarjetasComponent {
 
-
-  @Input() items: any[] = [];
-
+  @Input() items: (SpotifyAlbum | SpotifyArtist)[] = [];
 
   constructor(private router: Router) { }
 
-  verArtista( item: any) {
-    let artistaId;
-    if ( item.type === 'artist'){
+  verArtista(item: SpotifyAlbum | SpotifyArtist): void {
+    let artistaId: string;
+
+    if (item.type === 'artist') {
       artistaId = item.id;
-    }else{
+    } else {
+      // It's an album, narrowing works automatically now
       artistaId = item.artists[0].id;
     }
 
-    this.router.navigate(['/artist', artistaId])
+    this.router.navigate(['/artist', artistaId]);
   }
-
 }

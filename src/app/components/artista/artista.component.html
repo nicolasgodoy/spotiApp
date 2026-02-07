@@ -1,51 +1,65 @@
-<app-loading *ngIf="loadingArtist"></app-loading>
-
-
-
-    <div class="row animated fadeIn m-5" *ngIf="!loadingArtist">
-        <div class="col-2">
-            <img [src]="artista.images | noimage" class="img-thumbnail" alt="">
-        </div>
-        <div class="col">
-            <h3>{{artista.name}}</h3>
-            <p>
-                <a [href]="artista.external_urls.spotify" target="_blank">
-                    Ir a la pagina del Artista
-                </a>
-            </p>
-        </div>
-        <div class="col-4 text-right">
-            <button routerLink="/search" class="btn btn-outline-danger">
-                Regresar
-            </button>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-            <div class="table">
-                <thead>
-                    <tr>
-                        <th>Foto</th>
-                        <th>Album</th>
-                        <th>Cancion</th>
-                        <th>Vista Previa</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor =" let track of topTracks">
-                        <td><img [src]="track.album.images | noimage" class="img-thumb"></td>
-                        <td>{{track.album.name}}</td>
-                        <td>{{track.name}}</td>
-                        <td>
-                            <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
-                        </td>
-                    </tr>
-                </tbody>
+@if (loadingArtist) {
+<app-loading></app-loading>
+} @else {
+<div class="row animated fadeIn m-4">
+    <div class="col">
+        <div class="artist-hero">
+            <img [src]="artista?.images | noimage" class="artist-img" alt="Artist photo">
+            <div class="artist-info">
+                <p class="text-uppercase fw-bold small mb-0">Artista verificado</p>
+                <h3>{{artista?.name}}</h3>
+                <div class="mt-4">
+                    <a [href]="artista?.external_urls?.spotify" target="_blank"
+                        class="btn btn-success rounded-pill px-4 py-2 me-3 fw-bold">
+                        Escuchar en Spotify
+                    </a>
+                    <button routerLink="/search" class="btn btn-outline-light rounded-pill px-4 py-2 fw-bold">
+                        Volver
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-
+<div class="row m-4 pt-4">
+    <div class="col">
+        <h4 class="mb-4 fw-bold">Populares</h4>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col" class="border-0">#</th>
+                        <th scope="col" class="border-0">Título</th>
+                        <th scope="col" class="border-0">Álbum</th>
+                        <th scope="col" class="border-0 text-center">Escuchar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (track of topTracks; track track.id; let i = $index) {
+                    <tr class="animated fadeIn">
+                        <td class="text-muted fw-bold">{{ i + 1 }}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img [src]="track.album.images | noimage" class="track-img me-3" alt="Track cover">
+                                <div>
+                                    <span class="d-block fw-bold">{{ track.name }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-muted small">{{ track.album.name }}</td>
+                        <td>
+                            <div class="player-container">
+                                <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri='" width="100%"
+                                    height="80" frameborder="0" allowtransparency="true"
+                                    allow="encrypted-media"></iframe>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+}

@@ -1,0 +1,60 @@
+.Contenedor-Cards {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    padding: 1rem;
+}
+
+.card {
+    height: 100%;
+    padding: 1rem;
+    background: var(--spotify-dark-grey);
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background: var(--spotify-light-grey);
+}
+
+.card-img-top {
+    border-radius: 6px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+    padding: 1rem 0 0 0;
+}
+
+.card-title {
+    margin-bottom: 4px;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text {
+    font-size: 0.85rem;
+    color: #b3b3b3;
+}
+
+.badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+.badge:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+@media (max-width: 576px) {
+    .Contenedor-Cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}

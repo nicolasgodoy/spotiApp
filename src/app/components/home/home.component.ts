@@ -1,31 +1,30 @@
-
-import { Component} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { SpotifyService } from '../../services/spotify.service';
+import { SpotifyAlbum } from '../../models/spotify.models';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styles: [
-  ]
+  styles: []
 })
-export class HomeComponent  {
+export class HomeComponent implements OnDestroy {
 
-  nuevasCanciones: any [] = [];
-  loading: boolean;
-  
+  nuevasCanciones: SpotifyAlbum[] = [];
+  loading: boolean = false;
+  private subscription?: Subscription;
 
-  constructor( private spotify: SpotifyService ) { 
-
+  constructor(private spotify: SpotifyService) {
     this.loading = true;
 
-
-   this.spotify.getNewReleases()
-    .subscribe( (data:any) => {
-     this.nuevasCanciones = data;
-      this.loading = false;
-      
-    });
+    this.subscription = this.spotify.getNewReleases()
+      .subscribe((data: SpotifyAlbum[]) => {
+        this.nuevasCanciones = data;
+        this.loading = false;
+      });
   }
 
-  
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }

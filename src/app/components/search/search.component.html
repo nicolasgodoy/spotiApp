@@ -1,10 +1,17 @@
-<div class="row m-5">
+<div class="row m-4 animated fadeIn">
     <div class="col">
-        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar Artista">
+        <h2 class="fw-bold mb-4">Explorar</h2>
+        <div class="search-container glass-nav rounded-pill p-1 d-flex align-items-center mb-5 shadow-sm">
+            <i class="fas fa-search ms-3 text-muted"></i>
+            <input #termino type="text" (keyup)="buscar(termino.value)"
+                class="form-control bg-transparent border-0 text-white px-3 shadow-none"
+                placeholder="¿Qué quieres escuchar?">
+        </div>
     </div>
 </div>
 
-
-<app-loading *ngIf="loading" class="m-5"></app-loading>
-
-<app-tarjetas *ngIf="!loading" [items]='artistas' ></app-tarjetas>  <!-- componente independiente -->
+@if (loading) {
+<app-loading class="d-block m-5"></app-loading>
+} @else {
+<app-tarjetas [items]='artistas'></app-tarjetas>
+}
