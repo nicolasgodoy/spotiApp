@@ -19,9 +19,15 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
-    this.spotify.getCategories().subscribe(categories => {
-      this.categories = categories;
-      this.loading = false;
+    this.spotify.getCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+        this.loading = false;
+      }
     });
   }
 
@@ -38,6 +44,22 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.artistas = data;
         this.loading = false;
       });
+  }
+
+  buscarByCategoria(nombre: string): void {
+    const input = document.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.value = nombre;
+    }
+    this.buscar(nombre);
+  }
+
+  getCategoryColor(index: number): string {
+    const colors = [
+      '#E13300', '#1E3264', '#E8115B', '#148A08', '#D84000',
+      '#8D67AB', '#7358FF', '#E1118C', '#503750', '#006450'
+    ];
+    return colors[index % colors.length];
   }
 
   ngOnDestroy(): void {

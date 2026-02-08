@@ -82,7 +82,6 @@ export interface NewReleasesResponse {
         offset: number;
         previous: string | null;
         total: number;
-        刻度: number;
     };
 }
 
