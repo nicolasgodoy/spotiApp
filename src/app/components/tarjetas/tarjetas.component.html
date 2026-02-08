@@ -2,16 +2,21 @@
 
   @for (item of items; track item.id) {
   <div (click)="verArtista(item)" class="card puntero">
-    <img [src]="item.images | noimage" class="card-img-top shadow-lg" alt="Cover">
+    <div class="card-img-container">
+      <img [src]="item.images | noimage" class="card-img-top shadow-lg" alt="Cover">
+      <div class="play-button-floating">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
     <div class="card-body">
-      <h6 class="card-title">{{ item.name }}</h6>
+      <h6 class="card-title text-white">{{ item.name }}</h6>
       <p class="card-text">
         @if (item.type === 'album') {
         @for (artista of item.artists; track artista.id) {
-        <span class="badge rounded-pill bg-success text-decoration-none me-1">{{artista.name}}</span>
+        <span class="badge rounded-pill bg-success text-white me-1">{{artista.name}}</span>
         }
         } @else {
-        <span class="badge rounded-pill bg-primary text-decoration-none">Artista</span>
+        <span class="badge rounded-pill bg-primary text-white">Artista</span>
         }
       </p>
     </div>

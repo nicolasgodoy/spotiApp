@@ -1,10 +1,11 @@
 <div class="row m-4 animated fadeIn">
     <div class="col">
         <h2 class="fw-bold mb-4">Explorar</h2>
-        <div class="search-container glass-nav rounded-pill p-1 d-flex align-items-center mb-5 shadow-sm">
-            <i class="fas fa-search ms-3 text-muted"></i>
+        <div
+            class="search-container glass-nav rounded-pill p-1 d-flex align-items-center mb-5 shadow-sm border border-light border-opacity-10">
+            <i class="fas fa-search ms-3 text-white-50"></i>
             <input #termino type="text" (keyup)="buscar(termino.value)"
-                class="form-control bg-transparent border-0 text-white px-3 shadow-none"
+                class="form-control bg-transparent border-0 text-white px-3 shadow-none fw-medium"
                 placeholder="¿Qué quieres escuchar?">
         </div>
     </div>
@@ -13,5 +14,21 @@
 @if (loading) {
 <app-loading class="d-block m-5"></app-loading>
 } @else {
+@if (artistas.length > 0) {
 <app-tarjetas [items]='artistas'></app-tarjetas>
+} @else {
+<div class="row m-4 pt-2 animated fadeIn">
+    <div class="col">
+        <h4 class="fw-bold mb-4">Explorar todo</h4>
+        <div class="category-grid">
+            @for (category of categories; track category.id) {
+            <div class="category-card" [style.background-color]="'rgba(255,255,255,0.05)'">
+                <span class="category-title">{{ category.name }}</span>
+                <img [src]="category.icons[0].url" class="category-img" alt="Category icon">
+            </div>
+            }
+        </div>
+    </div>
+</div>
+}
 }

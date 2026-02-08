@@ -65,11 +65,31 @@ export interface SpotifyTrack {
     uri: string;
 }
 
+export interface SpotifyCategory {
+    href: string;
+    icons: SpotifyImage[];
+    id: string;
+    name: string;
+}
+
 // API Response Models
 export interface NewReleasesResponse {
     albums: {
         href: string;
         items: SpotifyAlbum[];
+        limit: number;
+        next: string | null;
+        offset: number;
+        previous: string | null;
+        total: number;
+        刻度: number;
+    };
+}
+
+export interface CategoriesResponse {
+    categories: {
+        href: string;
+        items: SpotifyCategory[];
         limit: number;
         next: string | null;
         offset: number;

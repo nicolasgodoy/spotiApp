@@ -8,13 +8,21 @@
 .card {
     height: 100%;
     padding: 1rem;
-    background: var(--spotify-dark-grey);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: var(--transition-smooth);
+    border: 1px solid transparent;
 }
 
 .card:hover {
     background: var(--spotify-light-grey);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.card-img-container {
+    position: relative;
+    margin-bottom: 12px;
 }
 
 .card-img-top {
@@ -44,7 +52,36 @@
 .badge {
     font-size: 0.7rem;
     letter-spacing: 0.05em;
-    opacity: 0.8;
+    opacity: 0.7;
+    transition: var(--transition-smooth);
+}
+
+.play-button-floating {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    background-color: var(--spotify-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: var(--transition-smooth);
+}
+
+.card:hover .play-button-floating {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-button-floating i {
+    font-size: 1.2rem;
+    margin-left: 3px;
 }
 
 .badge:hover {

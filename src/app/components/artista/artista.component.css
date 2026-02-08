@@ -49,10 +49,50 @@
 .table tr td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+    text-align: right;
 }
 
 .table tr:hover td {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.track-number {
+    font-size: 1.1rem;
+    width: 40px;
+}
+
+.track-main-info {
+    font-size: 1rem;
+    color: white;
+}
+
+.track-album-info {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    border-radius: 4px;
+}
+
+.table tr:hover .play-overlay {
+    opacity: 1;
+}
+
+.play-overlay i {
+    color: white;
+    font-size: 0.8rem;
 }
 
 .player-container {

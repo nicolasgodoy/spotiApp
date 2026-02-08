@@ -8,7 +8,9 @@ import {
   SpotifyTrack,
   NewReleasesResponse,
   ArtistsSearchResponse,
-  TopTracksResponse
+  TopTracksResponse,
+  CategoriesResponse,
+  SpotifyCategory
 } from '../models/spotify.models';
 
 @Injectable({
@@ -40,5 +42,10 @@ export class SpotifyService {
   getTopTracks(id: string): Observable<SpotifyTrack[]> {
     return this.getQuery<TopTracksResponse>(`artists/${id}/top-tracks?country=us`)
       .pipe(map((data: TopTracksResponse) => data.tracks));
+  }
+
+  getCategories(): Observable<SpotifyCategory[]> {
+    return this.getQuery<CategoriesResponse>('browse/categories?limit=20')
+      .pipe(map((data: CategoriesResponse) => data.categories.items));
   }
 }
